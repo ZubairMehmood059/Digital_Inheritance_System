@@ -4,23 +4,6 @@ import { logOut } from "../../firebase/auth";
 // ── PATTERN 6: Composite — nav tree built from NavGroup + NavItem ─
 import navTree from "../../patterns/composite/SidebarComposite";
 
-function NavIcon({ d, type, size = 15 }) {
-  if (type === "rect") {
-    return (
-      <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24" style={{ flexShrink:0 }}>
-        <rect x="3" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/>
-        <rect x="14" y="14" width="7" height="7" rx="1"/>
-      </svg>
-    );
-  }
-  return (
-    <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24" style={{ flexShrink:0 }}>
-      <path strokeLinecap="round" strokeLinejoin="round" d={d} />
-    </svg>
-  );
-}
 function ThemeToggleRow({ theme, toggleTheme }) {
   const isDark = theme === "dark";
   return (
@@ -55,11 +38,6 @@ export default function Sidebar({ userName, mobileOpen, onClose, theme, toggleTh
   async function handleLogout() {
     await logOut();
     navigate("/login");
-  }
-
-  function go(path) {
-    navigate(path);
-    if (onClose) onClose();
   }
 
   return (

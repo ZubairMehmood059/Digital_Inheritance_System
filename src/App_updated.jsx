@@ -10,11 +10,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-<<<<<<< HEAD
-import { auth } from "./firebase/config";
-=======
 import { auth, firebaseConfigError } from "./firebase/config";
->>>>>>> da8dc0b (Fix Netlify deployment)
 import { getUserData } from "./firebase/db";
 import AppLayout from "./components/layout/AppLayout";
 // ── PATTERN 5: Bridge ─────────────────────────────────────────────
@@ -53,8 +49,6 @@ function LoadingScreen() {
   );
 }
 
-<<<<<<< HEAD
-=======
 function ConfigurationErrorScreen() {
   return (
     <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "24px", background: "var(--bg, #f7f8fa)", color: "var(--text-primary, #1f2937)" }}>
@@ -68,8 +62,6 @@ function ConfigurationErrorScreen() {
     </div>
   );
 }
-
->>>>>>> da8dc0b (Fix Netlify deployment)
 // ── Protected route — now forwards theme props to AppLayout ──────────────────
 function ProtectedRoute({ user, userName, theme, toggleTheme, children }) {
   if (user === null) return <Navigate to="/login" />;
@@ -105,13 +97,6 @@ export default function App() {
   // ──────────────────────────────────────────────────────────────────────────
 
   useEffect(() => {
-<<<<<<< HEAD
-    return onAuthStateChanged(auth, async (u) => {
-      setUser(u ?? null);
-      if (u) {
-        const data = await getUserData();
-        if (data?.name) setUserName(data.name);
-=======
     if (!auth) {
       return undefined;
     }
@@ -125,18 +110,13 @@ export default function App() {
         } catch (error) {
           console.error("Failed to load user profile:", error);
         }
->>>>>>> da8dc0b (Fix Netlify deployment)
         // FEATURE: auto-mark overdue bills silently on every login
         runBillAutoUpdate();
       }
     });
   }, []);
 
-<<<<<<< HEAD
-=======
   if (firebaseConfigError) return <ConfigurationErrorScreen />;
-
->>>>>>> da8dc0b (Fix Netlify deployment)
   // Wrap helper — passes theme + toggleTheme through to AppLayout
   const wrap = (el) => (
     <ProtectedRoute user={user} userName={userName} theme={theme} toggleTheme={toggleTheme}>
@@ -171,10 +151,7 @@ export default function App() {
           </ProtectedRoute>
         } />
         <Route path="/emergency/:uid" element={<EmergencyPublic />} />
-<<<<<<< HEAD
-=======
         <Route path="*" element={<Navigate to="/login" replace />} />
->>>>>>> da8dc0b (Fix Netlify deployment)
       </Routes>
     </BrowserRouter>
   );

@@ -6,11 +6,7 @@ import { doc, getDoc, collection, getDocs, query, where } from "firebase/firesto
 import { computeVaultStrength } from "../utils/vaultStrength";
 import { GoogleGenAI } from '@google/genai';
 
-<<<<<<< HEAD
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
-=======
 const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
->>>>>>> da8dc0b (Fix Netlify deployment)
 
 function Icon({ d, size = 16, color = "currentColor" }) {
   return (
@@ -104,14 +100,11 @@ export default function Dashboard() {
   setAiLoading(true);
   setAiScore(null);
   try {
-<<<<<<< HEAD
-=======
     if (!geminiApiKey) {
       throw new Error("VITE_GEMINI_API_KEY is not configured");
     }
 
     const ai = new GoogleGenAI({ apiKey: geminiApiKey });
->>>>>>> da8dc0b (Fix Netlify deployment)
     const uid = auth.currentUser?.uid;
     let nwData = null;
     let subs = [];

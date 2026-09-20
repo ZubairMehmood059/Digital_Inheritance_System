@@ -16,11 +16,14 @@ export default function EmergencyPublic() {
   const [fromCache, setFromCache] = useState(false);
 
   useEffect(() => {
+    let cachedCard = null;
+
     // 1. Try localStorage cache first for instant offline access
     try {
       const cached = localStorage.getItem(cacheKey(uid));
       if (cached) {
         const parsed = JSON.parse(cached);
+        cachedCard = parsed;
         setCard(parsed);
         setFromCache(true);
         setLoading(false);
@@ -37,13 +40,13 @@ export default function EmergencyPublic() {
           setLoading(false);
           // Update cache
           try { localStorage.setItem(cacheKey(uid), JSON.stringify(data)); } catch { /* ignore */ }
-        } else if (!fromCache) {
+        } else if (!cachedCard) {
           setError(true);
           setLoading(false);
         }
       })
       .catch(() => {
-        if (!card) {
+        if (!cachedCard) {
           setError(true);
           setLoading(false);
         }

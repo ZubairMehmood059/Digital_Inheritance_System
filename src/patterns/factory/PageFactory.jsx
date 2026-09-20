@@ -18,8 +18,6 @@
  * ╚══════════════════════════════════════════════════════════════════╝
  */
 
-import React from "react";
-
 // ── Module type → visual identity mapping ─────────────────────────
 const MODULE_THEMES = {
   FINANCE: {

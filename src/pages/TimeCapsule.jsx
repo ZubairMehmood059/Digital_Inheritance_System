@@ -6,14 +6,6 @@ import { db, auth } from "../firebase/config";
 import { collection, addDoc, getDocs, deleteDoc, doc, query, where, serverTimestamp } from "firebase/firestore";
 import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-function Icon({ d, size = 15, color = "currentColor" }) {
-  return (
-    <svg width={size} height={size} fill="none" stroke={color} strokeWidth="1.75" viewBox="0 0 24 24" style={{ flexShrink:0 }}>
-      <path strokeLinecap="round" strokeLinejoin="round" d={d} />
-    </svg>
-  );
-}
-
 function countdown(unlockDate) {
   const diff = new Date(unlockDate) - new Date();
   if (diff <= 0) return null;
@@ -90,7 +82,7 @@ export default function TimeCapsule() {
             }
           );
         });
-      } catch (err) {
+      } catch {
         setSaving(false);
         setUploadProg(0);
         showToast("Failed to upload media", "error");

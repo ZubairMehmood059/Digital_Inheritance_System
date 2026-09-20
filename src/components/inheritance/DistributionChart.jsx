@@ -18,18 +18,6 @@ export default function DistributionChart({ beneficiaries }) {
   const total = beneficiaries.reduce((s, b) => s + (b.percentage || 0), 0);
   const radius = 48;
   const circumference = 2 * Math.PI * radius;
-<<<<<<< HEAD
-  let offset = 0;
-
-  const segments = beneficiaries.map((b, i) => {
-    const pct = (b.percentage || 0) / 100;
-    const dash = pct * circumference;
-    const gap = circumference - dash;
-    const rotation = (offset / 100) * 360 - 90;
-    offset += b.percentage || 0;
-    return { ...b, dash, gap, rotation, color: COLORS[i % COLORS.length] };
-  });
-=======
   const segments = beneficiaries.reduce((result, b, i) => {
     const pct = (b.percentage || 0) / 100;
     const dash = pct * circumference;
@@ -40,7 +28,6 @@ export default function DistributionChart({ beneficiaries }) {
     result.offset += b.percentage || 0;
     return result;
   }, { segments: [], offset: 0 }).segments;
->>>>>>> da8dc0b (Fix Netlify deployment)
 
   return (
     <div style={styles.wrapper}>

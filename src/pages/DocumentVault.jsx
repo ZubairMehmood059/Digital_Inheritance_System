@@ -115,7 +115,9 @@ export default function DocumentVault() {
     try {
       const sRef = ref(storage, docItem.storagePath);
       await deleteObject(sRef);
-    } catch {}
+    } catch (error) {
+      console.warn("Document storage cleanup failed:", error);
+    }
     await deleteDoc(doc(db, "documents", docItem.id));
     showToast("Document removed");
     loadDocs();
