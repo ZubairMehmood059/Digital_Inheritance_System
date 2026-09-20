@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── LIGHT THEME ─────────────────────────────────────────────────────────── */
+:root {
+  --bg:           #F7F4F4;
+  --bg-card:      #FFFFFF;
+  --bg-hover:     #F5EFEF;
+  --bg-active:    #FDEEEE;
+
+  --bg-color:     #F7F4F4;
+  --card-bg:      #FFFFFF;
+  --text-color:   #0f172a;
+  --secondary-text:#64748b;
+  --border-color: #EAE2E2;
+
+  --border:       #EAE2E2;
+  --border-focus: #E0474C;
+
+  --text-1:       #1E293B;
+  --text-2:       #475569;
+  --text-3:       #94A3B8;
+
+  /* ── Rose/Crimson Brand ── */
+  --brand:        #E0474C;
+  --brand-light:  #FEF2F2;
+  --brand-hover:  #C73D42;
+  --brand-glow:   rgba(224,71,76,0.18);
+
+  --purple:       #8B5CF6;
+  --teal:         #14B8A6;
+
+  --success:      #22C55E;
+  --success-bg:   #F0FDF4;
+  --warning:      #F59E0B;
+  --warning-bg:   #FFFBEB;
+  --danger:       #EF4444;
+  --danger-bg:    #FEF2F2;
+  --info:         #3B82F6;
+  --info-bg:      #EFF6FF;
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:       0 4px 16px rgba(224,71,76,0.06), 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md:    0 8px 28px rgba(224,71,76,0.08), 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-lg:    0 16px 48px rgba(224,71,76,0.12);
+
+  --glow-brand:   0 0 40px rgba(224,71,76,0.10), 0 0 0 1px rgba(224,71,76,0.12);
+  --glass-bg:     rgba(255,255,255,0.85);
+  --card-highlight: rgba(224,71,76,0.06);
+
+  --radius-sm:    6px;
+  --radius:       10px;
+  --radius-lg:    14px;
+  --radius-xl:    20px;
+  --radius-btn:   12px;
+
+  /* Legacy aliases */
+  --bg-base:      #F7F4F4;
+  --bg-1:         #FFFFFF;
+  --bg-2:         #FFFFFF;
+  --bg-3:         #F7F4F4;
+  --bg-4:         #FDEEEE;
+  --text-primary: #1E293B;
+  --text-secondary: #475569;
+  --text-muted:   #94A3B8;
+  --border-hover: #D4BEBE;
+
+  --primary-color: #E0474C;
+  --primary-hover: #C73D42;
+}
+
+/* ─── DARK THEME ───────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:           #080A0F;
+  --bg-card:      #0F1117;
+  --bg-hover:     #141720;
+  --bg-active:    #1C1220;
+
+  --bg-color:     #080A0F;
+  --card-bg:      #0F1117;
+  --text-color:   #f1f5f9;
+  --secondary-text:#94a3b8;
+  --border-color: #1E2030;
+
+  --border:       #1E2030;
+  --border-focus: #F87171;
+
+  --text-1:       #E2E8F0;
+  --text-2:       #94A3B8;
+  --text-3:       #4A5568;
+
+  /* ── Rose/Crimson Brand (Dark) ── */
+  --brand:        #F87171;
+  --brand-light:  #200A0A;
+  --brand-hover:  #FCA5A5;
+  --brand-glow:   rgba(248,113,113,0.2);
+
+  --purple:       #9D6EFA;
+  --teal:         #2DD4BF;
+
+  --success:      #34D399;
+  --success-bg:   #0A2218;
+  --warning:      #FBBF24;
+  --warning-bg:   #1F1508;
+  --danger:       #F87171;
+  --danger-bg:    #200A0A;
+  --info:         #60A5FA;
+  --info-bg:      #0A1628;
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow:       0 4px 16px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md:    0 8px 28px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-lg:    0 16px 48px rgba(0,0,0,0.7);
+
+  --glow-brand:   0 0 40px rgba(248,113,113,0.12), 0 0 0 1px rgba(248,113,113,0.10);
+  --glass-bg:     rgba(8,10,15,0.88);
+  --card-highlight: rgba(248,113,113,0.05);
+
+  /* Legacy aliases — dark */
+  --bg-base:      #080A0F;
+  --bg-1:         #0F1117;
+  --bg-2:         #0F1117;
+  --bg-3:         #080A0F;
+  --bg-4:         #141720;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --text-muted:   #4A5568;
+  --border-hover: #2E3050;
+
+  --primary-color: #F87171;
+  --primary-hover: #FCA5A5;
+}
+
+/* ─── Base styles ──────────────────────────────────────────────────────────── */
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+/* Subtle dot-grid ambient pattern — dark mode only */
+[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(248,113,113,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle warm texture — light mode */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(224,71,76,0.04), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root { position: relative; z-index: 1; }
+
+a { text-decoration: none; color: inherit; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+input, select, textarea, button { font-family: 'Inter', system-ui, sans-serif; }
+
+/* ─── Display font utility ─────────────────────────────────────────────────── */
+.font-display {
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+/* ─── Glass surface ─────────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+/* ─── Brand glow card ──────────────────────────────────────────────────────── */
+.card-glow {
+  box-shadow: var(--glow-brand);
+  border-color: var(--brand-glow) !important;
+}
+
+/* ─── Smooth theme transitions ─────────────────────────────────────────────── */
+.bg-card, [class*="card"], aside, nav {
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* ─── Animations ───────────────────────────────────────────────────────────── */
+@keyframes spin        { to { transform: rotate(360deg); } }
+@keyframes fadeIn      { from { opacity:0; } to { opacity:1; } }
+@keyframes slideUp     { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideRight  { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideDown   { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes scaleIn     { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+@keyframes pulse       { 0%,100% { opacity:1; } 50% { opacity:0.45; } }
+@keyframes shimmer     { 0% { background-position:-600px 0; } 100% { background-position:600px 0; } }
+@keyframes glowPulse   { 0%,100% { box-shadow: 0 0 20px rgba(224,71,76,0.15); } 50% { box-shadow: 0 0 40px rgba(224,71,76,0.30); } }
+@keyframes gradientFlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes floatY      { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+@keyframes staggerIn {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.stagger-1 { animation: staggerIn 0.4s ease both; animation-delay: 0.05s; }
+.stagger-2 { animation: staggerIn 0.4s ease both; animation-delay: 0.10s; }
+.stagger-3 { animation: staggerIn 0.4s ease both; animation-delay: 0.15s; }
+.stagger-4 { animation: staggerIn 0.4s ease both; animation-delay: 0.20s; }
+
+.skeleton {
+  background: linear-gradient(90deg, #F5EFEF 25%, #EDE5E5 50%, #F5EFEF 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
+
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(90deg, #0F1117 25%, #141720 50%, #0F1117 75%);
+  background-size: 600px 100%;
+}
+
+/* Mobile sidebar hidden by default */
+@media (max-width: 768px) {
+  aside { transform: translateX(-100%); }
+}
