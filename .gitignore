@@ -22,4 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 .env
+=======
+.env
+.env.*
+!.env.example
+>>>>>>> da8dc0b (Fix Netlify deployment)

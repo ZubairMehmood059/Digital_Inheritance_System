@@ -10,7 +10,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+<<<<<<< HEAD
 import { auth } from "./firebase/config";
+=======
+import { auth, firebaseConfigError } from "./firebase/config";
+>>>>>>> da8dc0b (Fix Netlify deployment)
 import { getUserData } from "./firebase/db";
 import AppLayout from "./components/layout/AppLayout";
 // ── PATTERN 5: Bridge ─────────────────────────────────────────────
@@ -49,6 +53,23 @@ function LoadingScreen() {
   );
 }
 
+<<<<<<< HEAD
+=======
+function ConfigurationErrorScreen() {
+  return (
+    <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "24px", background: "var(--bg, #f7f8fa)", color: "var(--text-primary, #1f2937)" }}>
+      <div style={{ maxWidth: "560px", padding: "28px", borderRadius: "16px", background: "var(--card-bg, #fff)", border: "1px solid var(--border, #e5e7eb)", boxShadow: "0 12px 32px rgba(0,0,0,0.08)" }}>
+        <h1 style={{ margin: "0 0 12px", fontSize: "22px" }}>Configuration required</h1>
+        <p style={{ margin: 0, lineHeight: 1.6, color: "var(--text-2, #4b5563)" }}>
+          Firebase is not configured for this deployment. Add the required VITE_FIREBASE_* environment variables in Netlify and redeploy.
+        </p>
+        {firebaseConfigError && <p style={{ margin: "16px 0 0", fontSize: "12px", color: "var(--danger, #b91c1c)" }}>{firebaseConfigError}</p>}
+      </div>
+    </div>
+  );
+}
+
+>>>>>>> da8dc0b (Fix Netlify deployment)
 // ── Protected route — now forwards theme props to AppLayout ──────────────────
 function ProtectedRoute({ user, userName, theme, toggleTheme, children }) {
   if (user === null) return <Navigate to="/login" />;
@@ -84,17 +105,38 @@ export default function App() {
   // ──────────────────────────────────────────────────────────────────────────
 
   useEffect(() => {
+<<<<<<< HEAD
     return onAuthStateChanged(auth, async (u) => {
       setUser(u ?? null);
       if (u) {
         const data = await getUserData();
         if (data?.name) setUserName(data.name);
+=======
+    if (!auth) {
+      return undefined;
+    }
+
+    return onAuthStateChanged(auth, async (u) => {
+      setUser(u ?? null);
+      if (u) {
+        try {
+          const data = await getUserData();
+          if (data?.name) setUserName(data.name);
+        } catch (error) {
+          console.error("Failed to load user profile:", error);
+        }
+>>>>>>> da8dc0b (Fix Netlify deployment)
         // FEATURE: auto-mark overdue bills silently on every login
         runBillAutoUpdate();
       }
     });
   }, []);
 
+<<<<<<< HEAD
+=======
+  if (firebaseConfigError) return <ConfigurationErrorScreen />;
+
+>>>>>>> da8dc0b (Fix Netlify deployment)
   // Wrap helper — passes theme + toggleTheme through to AppLayout
   const wrap = (el) => (
     <ProtectedRoute user={user} userName={userName} theme={theme} toggleTheme={toggleTheme}>
@@ -129,6 +171,10 @@ export default function App() {
           </ProtectedRoute>
         } />
         <Route path="/emergency/:uid" element={<EmergencyPublic />} />
+<<<<<<< HEAD
+=======
+        <Route path="*" element={<Navigate to="/login" replace />} />
+>>>>>>> da8dc0b (Fix Netlify deployment)
       </Routes>
     </BrowserRouter>
   );

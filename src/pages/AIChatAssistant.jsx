@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { GoogleGenAI } from "@google/genai";
 
+<<<<<<< HEAD
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+=======
+const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+>>>>>>> da8dc0b (Fix Netlify deployment)
 
 export default function AIChatAssistant() {
   const [messages, setMessages] = useState([
@@ -28,6 +32,14 @@ export default function AIChatAssistant() {
     setLoading(true);
 
     try {
+<<<<<<< HEAD
+=======
+      if (!geminiApiKey) {
+        throw new Error("VITE_GEMINI_API_KEY is not configured");
+      }
+
+      const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+>>>>>>> da8dc0b (Fix Netlify deployment)
       // Build conversation history for Gemini
       // Gemini uses "user" and "model" roles (not "assistant")
       const history = messages

@@ -17,9 +17,13 @@
  * ╚══════════════════════════════════════════════════════════════════╝
  */
 
+<<<<<<< HEAD
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+=======
+import { app as configuredApp, auth as configuredAuth, db as configuredDb } from "../../firebase/config";
+>>>>>>> da8dc0b (Fix Netlify deployment)
 import { getStorage } from "firebase/storage";
 
 class FirebaseService {
@@ -33,6 +37,7 @@ class FirebaseService {
 
   // ── Private constructor — nobody can call `new FirebaseService()` ──
   constructor() {
+<<<<<<< HEAD
     // Guard: if Firebase is already initialized (HMR / hot reload), reuse it
     if (getApps().length > 0) {
       this.#app = getApps()[0];
@@ -51,6 +56,12 @@ class FirebaseService {
     this.#auth    = getAuth(this.#app);
     this.#db      = getFirestore(this.#app);
     this.#storage = getStorage(this.#app);
+=======
+    this.#app = configuredApp;
+    this.#auth = configuredAuth;
+    this.#db = configuredDb;
+    this.#storage = this.#app ? getStorage(this.#app) : null;
+>>>>>>> da8dc0b (Fix Netlify deployment)
 
     console.log("[Singleton] FirebaseService instance created.");
   }
