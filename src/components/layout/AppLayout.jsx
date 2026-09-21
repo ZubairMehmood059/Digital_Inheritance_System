@@ -2,14 +2,19 @@
 // CHANGE: Accepts theme + toggleTheme props, passes them to Sidebar
 // Everything else is exactly the same as original
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 
 export default function AppLayout({ children, userName, theme, toggleTheme }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.classList.toggle("mobile-menu-open", mobileOpen);
+    return () => document.body.classList.remove("mobile-menu-open");
+  }, [mobileOpen]);
+
   return (
-    <div style={{ display:"flex", minHeight:"100vh", background:"var(--bg)" }}>
+    <div className="app-shell" style={{ display:"flex", minHeight:"100vh", background:"var(--bg)" }}>
       <Sidebar
         userName={userName}
         mobileOpen={mobileOpen}
@@ -19,11 +24,17 @@ export default function AppLayout({ children, userName, theme, toggleTheme }) {
       />
 
       {/* Mobile topbar — unchanged */}
-      <div style={S.mobileBar}>
-        <button onClick={() => setMobileOpen(true)} style={S.hamburger}>
-          <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+      <div className="mobile-topbar" style={S.mobileBar}>
+        <button
+          className={`mobile-menu-toggle${mobileOpen ? " is-open" : ""}`}
+          onClick={() => setMobileOpen(open => !open)}
+          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileOpen}
+          style={S.hamburger}
+        >
+          <span />
+          <span />
+          <span />
         </button>
         <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
           <div style={{ width:"22px", height:"22px", borderRadius:"6px", background:"var(--brand)", display:"flex", alignItems:"center", justifyContent:"center" }}>
@@ -36,7 +47,7 @@ export default function AppLayout({ children, userName, theme, toggleTheme }) {
         <div style={{ width:"32px" }} />
       </div>
 
-      <main style={S.main}>
+      <main className="app-main" style={S.main}>
         <div style={S.inner}>{children}</div>
       </main>
     </div>

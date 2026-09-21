@@ -58,6 +58,7 @@ export default function NetWorth() {
   const [saving,  setSaving]  = useState(false);
   const [saved,   setSaved]   = useState(false);
   const [saveError, setSaveError] = useState("");
+  const [loadError, setLoadError] = useState("");
   // FEATURE: Net Worth Trend
   const [trendData, setTrendData] = useState([]);
 
@@ -66,19 +67,25 @@ export default function NetWorth() {
     const fetchDoc = async () => {
       const currentUser = firebaseService.auth.currentUser;
       if (!currentUser) { setLoading(false); return; }
-      try {
-        const snap = await getDoc(doc(firebaseService.db, "netWorth", currentUser.uid));
-        if (snap.exists()) {
-          const data = snap.data();
-          if (data.assets) {
-            setAssets(DEFAULT_ASSETS.map(def => {
-              const saved = (data.assets || []).find(a => a.name === def.name || a.key === def.key);
-              return { ...def, value: saved?.value ?? 0 };
-            }));
-          }
-          if (data.debts !== undefined) setDebts(Number(data.debts) || 0);
+      const snap = await getDoc(doc(firebaseService.db, "netWorth", currentUser.uid))
+        .catch((err) => {
+          setLoadError(`Unable to load your saved net worth: ${err.message}`);
+          return null;
+        });
+      if (snap?.exists()) {
+        const data = snap.data();
+        if (data.assets) {
+          setAssets(DEFAULT_ASSETS.map(def => {
+            const saved = (data.assets || []).find(a => a.name === def.name || a.key === def.key);
+            return { ...def, value: saved?.value ?? 0 };
+          }));
         }
-        // FEATURE: Load trend history (last 12 snapshots)
+        if (data.debts !== undefined) setDebts(Number(data.debts) || 0);
+      }
+
+      // History is optional: an older deployment may not have its subcollection
+      // rules yet, but the main net-worth document should remain usable.
+      try {
         const trendQ = query(
           collection(firebaseService.db, "netWorthHistory", currentUser.uid, "snapshots"),
           orderBy("savedAt", "asc"),
@@ -87,7 +94,7 @@ export default function NetWorth() {
         const trendSnap = await getDocs(trendQ);
         setTrendData(trendSnap.docs.map(d => d.data()));
       } catch (err) {
-        console.error("NetWorth fetch error:", err.message);
+        setLoadError(`Net worth history is unavailable: ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -195,6 +202,9 @@ export default function NetWorth() {
       })}
 
       {/* Save error banner */}
+      {loadError && (
+        <div style={S.errorBanner}>⚠ {loadError}</div>
+      )}
       {saveError && (
         <div style={S.errorBanner}>⚠ {saveError}</div>
       )}

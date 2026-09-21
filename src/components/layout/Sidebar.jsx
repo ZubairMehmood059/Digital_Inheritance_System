@@ -43,9 +43,14 @@ export default function Sidebar({ userName, mobileOpen, onClose, theme, toggleTh
   return (
     <>
       {mobileOpen && (
-        <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", zIndex:99, backdropFilter:"blur(4px)" }} />
+        <div
+          className="mobile-nav-backdrop"
+          onClick={onClose}
+          role="presentation"
+          style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", zIndex:99, backdropFilter:"blur(4px)" }}
+        />
       )}
-      <aside style={{ ...S.sidebar, ...(mobileOpen ? { transform:"translateX(0)" } : {}) }}>
+      <aside className={`app-sidebar${mobileOpen ? " is-open" : ""}`} style={{ ...S.sidebar, ...(mobileOpen ? { transform:"translateX(0)" } : {}) }}>
 
         {/* Ambient glow */}
         <div style={S.sidebarGlow} />

@@ -142,7 +142,10 @@ body {
   min-height: 100vh;
   transition: background-color 0.25s ease, color 0.25s ease;
   position: relative;
+  overflow-x: hidden;
 }
+
+body.mobile-menu-open { overflow: hidden; }
 
 /* Subtle dot-grid ambient pattern — dark mode only */
 [data-theme="dark"] body::before {
@@ -175,6 +178,9 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
 
 input, select, textarea, button { font-family: 'Inter', system-ui, sans-serif; }
+
+img, video, canvas { max-width: 100%; }
+button, input, select, textarea { max-width: 100%; }
 
 /* ─── Display font utility ─────────────────────────────────────────────────── */
 .font-display {
@@ -216,6 +222,88 @@ input, select, textarea, button { font-family: 'Inter', system-ui, sans-serif; }
 @keyframes staggerIn {
   from { opacity:0; transform:translateY(16px); }
   to   { opacity:1; transform:translateY(0); }
+}
+
+/* Responsive application shell. Page components keep their existing desktop
+   styles; these rules only remove fixed-shell constraints at smaller widths. */
+.app-main { min-width: 0; overflow-x: hidden; }
+.app-main > div { min-width: 0; }
+.app-sidebar { overflow-x: hidden !important; overflow-y: auto !important; }
+.mobile-menu-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 9px !important;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+}
+.mobile-menu-toggle span {
+  display: block;
+  width: 19px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform .25s ease, opacity .2s ease, width .25s ease;
+  transform-origin: center;
+}
+.mobile-menu-toggle span:nth-child(2) { width: 13px; align-self: flex-start; }
+.mobile-menu-toggle.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.mobile-menu-toggle.is-open span:nth-child(2) { opacity: 0; width: 19px; }
+.mobile-menu-toggle.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-nav-backdrop { animation: fadeIn .2s ease both; }
+
+main table { max-width: 100%; }
+main td, main th { overflow-wrap: anywhere; }
+
+@media (max-width: 900px) {
+  .mobile-topbar {
+    display: flex !important;
+    height: 56px !important;
+    padding: 0 max(14px, env(safe-area-inset-right)) 0 max(14px, env(safe-area-inset-left)) !important;
+  }
+  .app-sidebar {
+    width: min(290px, 88vw) !important;
+    transform: translateX(-105%) !important;
+    box-shadow: 18px 0 48px rgba(0, 0, 0, .28);
+  }
+  .app-sidebar.is-open { transform: translateX(0) !important; }
+  .app-main {
+    width: 100%;
+    margin-left: 0 !important;
+    padding-top: 56px;
+  }
+  .app-main > div {
+    padding: 24px 20px 48px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-main > div { padding: 20px 14px 40px !important; }
+  main [style*="grid-template-columns"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  main [style*="width: 500px"],
+  main [style*="width: 600px"],
+  main [style*="width: 700px"],
+  main [style*="width: 800px"] {
+    width: 100% !important;
+  }
+  main [style*="min-width"] { min-width: 0 !important; }
+  main table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-topbar { padding-inline: 10px !important; }
+  .app-main > div { padding-inline: 11px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu-toggle span, .mobile-nav-backdrop, .app-sidebar { transition: none !important; animation: none !important; }
 }
 
 .stagger-1 { animation: staggerIn 0.4s ease both; animation-delay: 0.05s; }
